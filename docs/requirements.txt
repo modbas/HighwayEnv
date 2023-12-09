@@ -6,3 +6,6 @@ sphinx_github_changelog
 sphinxcontrib-bibtex
 ipykernel
 jupyter-sphinx
+stable-baselines3
+moviepy
+tensorboard

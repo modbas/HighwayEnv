@@ -6,10 +6,10 @@ from stable_baselines3.common.vec_env import SubprocVecEnv
 
 import highway_env  # noqa: F401
 
-TRAIN = True
+TRAIN = False
 
 if __name__ == "__main__":
-    n_cpu = 6
+    n_cpu = 24
     batch_size = 64
     env = make_vec_env("racetrack-v0", n_envs=n_cpu, vec_env_cls=SubprocVecEnv)
     model = PPO(
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     # Run the algorithm
     model = PPO.load("racetrack_ppo/model", env=env)
 
-    env = gym.make("racetrack-v0")
+    env = gym.make("racetrack-v0", render_mode="rgb_array")
     env = RecordVideo(
         env, video_folder="racetrack_ppo/videos", episode_trigger=lambda e: True
     )
