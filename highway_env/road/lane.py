@@ -27,7 +27,7 @@ class AbstractLane(object):
         :param lateral: lateral lane coordinate [m]
         :return: the corresponding world position [m]
         """
-        raise NotImplementedError()
+        raise NotImplemeentedError()
 
     @abstractmethod
     def local_coordinates(self, position: np.ndarray) -> Tuple[float, float]:

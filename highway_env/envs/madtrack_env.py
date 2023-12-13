@@ -29,8 +29,8 @@ class MadTrackEnv(AbstractEnv):
                 "observation": {
                     "type": "OccupancyGrid",
                     "features": ["presence", "on_road"],
-                    "grid_size": [[-18, 18], [-18, 18]],
-                    "grid_step": [3, 3],
+                    "grid_size": [[0, 2.7], [0, 1.8]],
+                    "grid_step": [0.1, 0.1],
                     "as_image": False,
                     "align_to_vehicle_axes": True,
                 },
@@ -48,10 +48,11 @@ class MadTrackEnv(AbstractEnv):
                 "lane_centering_reward": 1,
                 "action_reward": -0.3,
                 "controlled_vehicles": 1,
-                "other_vehicles": 1,
-                "screen_width": 600,
-                "screen_height": 600,
-                "centering_position": [0.5, 0.5],
+                "other_vehicles": 0,
+                "screen_width": 1024,
+                "screen_height": 768,
+                "centering_position": [0, 0],
+                "scaling": 380,
             }
         )
         return config
@@ -92,12 +93,11 @@ class MadTrackEnv(AbstractEnv):
         center = [1.35, 0.9]  # [m]
         radius = 0.5  # [m]
         alpha = 24  # [deg]
-
-        net = RoadNetwork()
-        radii = [radius, radius + 0.2 ]
+        
+        radii = [radius, radius + 0.1]
         n, c, s = LineType.NONE, LineType.CONTINUOUS, LineType.STRIPED
         line = [[c, s], [n, c]]
-        for lane in [0, 1]:
+        for lane in [0]:
             net.add_lane(
                 "se",
                 "ex",
@@ -210,9 +210,19 @@ class MadTrackEnv(AbstractEnv):
 
         # Controlled vehicles
         self.controlled_vehicles = []
+
+        controlled_vehicle = self.action_type.vehicle_class(self.road, (0, 0 ), 0, 0)
+        #controlled_vehicle = self.action_type.vehicle_class.make_on_lane(
+        #    self.road, ("se", "ex", 0), speed=None, longitudinal=rng.uniform(0, 1)
+        #)
+
+        self.controlled_vehicles.append(controlled_vehicle)
+        self.road.vehicles.append(controlled_vehicle)
+
+'''
         for i in range(self.config["controlled_vehicles"]):
             lane_index = (
-                ("a", "b", rng.integers(2))
+                ("se", "ex", rng.integers(2))
                 if i == 0
                 else self.road.network.random_lane_index(rng)
             )
@@ -226,14 +236,14 @@ class MadTrackEnv(AbstractEnv):
         # Front vehicle
         vehicle = IDMVehicle.make_on_lane(
             self.road,
-            ("b", "c", lane_index[-1]),
+            ("se", "ex", lane_index[-1]),
             longitudinal=rng.uniform(
-                low=0, high=self.road.network.get_lane(("b", "c", 0)).length
+                low=0, high=self.road.network.get_lane(("se", "ex", 0)).length
             ),
             speed=6 + rng.uniform(high=3),
         )
         self.road.vehicles.append(vehicle)
-
+        
         # Other vehicles
         for i in range(rng.integers(self.config["other_vehicles"])):
             random_lane_index = self.road.network.random_lane_index(rng)
@@ -251,3 +261,4 @@ class MadTrackEnv(AbstractEnv):
                     break
             else:
                 self.road.vehicles.append(vehicle)
+'''

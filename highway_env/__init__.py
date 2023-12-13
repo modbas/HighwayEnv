@@ -106,3 +106,9 @@ def register_highway_envs():
 
     # u_turn_env.py
     register(id="u-turn-v0", entry_point="highway_env.envs:UTurnEnv")
+
+    # madtrack_env.py
+    register(
+        id="madtrack-v0",
+        entry_point="highway_env.envs:MadTrackEnv",
+    )
