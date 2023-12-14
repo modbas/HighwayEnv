@@ -52,7 +52,7 @@ class MadTrackEnv(AbstractEnv):
                 "screen_width": 1024,
                 "screen_height": 768,
                 "centering_position": [0, 0],
-                "scaling": 380,
+                "scaling": 1024 / 2.7,
             }
         )
         return config
@@ -93,6 +93,7 @@ class MadTrackEnv(AbstractEnv):
         center = [1.35, 0.9]  # [m]
         radius = 0.5  # [m]
         alpha = 24  # [deg]
+        width = 0.1 # [ m ]
         
         radii = [radius, radius + 0.1]
         n, c, s = LineType.NONE, LineType.CONTINUOUS, LineType.STRIPED
@@ -108,6 +109,7 @@ class MadTrackEnv(AbstractEnv):
                     np.deg2rad(alpha),
                     clockwise=False,
                     line_types=line[lane],
+                    width = width,
                 ),
             )
             net.add_lane(
@@ -120,6 +122,7 @@ class MadTrackEnv(AbstractEnv):
                     np.deg2rad(-alpha),
                     clockwise=False,
                     line_types=line[lane],
+                    width = width,
                 ),
             )
             net.add_lane(
@@ -132,6 +135,7 @@ class MadTrackEnv(AbstractEnv):
                     np.deg2rad(-90 + alpha),
                     clockwise=False,
                     line_types=line[lane],
+                    width = width,
                 ),
             )
             net.add_lane(
@@ -144,6 +148,7 @@ class MadTrackEnv(AbstractEnv):
                     np.deg2rad(-90 - alpha),
                     clockwise=False,
                     line_types=line[lane],
+                    width = width,
                 ),
             )
             net.add_lane(
@@ -156,6 +161,7 @@ class MadTrackEnv(AbstractEnv):
                     np.deg2rad(-180 + alpha),
                     clockwise=False,
                     line_types=line[lane],
+                    width = width,
                 ),
             )
             net.add_lane(
@@ -168,6 +174,7 @@ class MadTrackEnv(AbstractEnv):
                     np.deg2rad(-180 - alpha),
                     clockwise=False,
                     line_types=line[lane],
+                    width = width,
                 ),
             )
             net.add_lane(
@@ -180,6 +187,7 @@ class MadTrackEnv(AbstractEnv):
                     np.deg2rad(90 + alpha),
                     clockwise=False,
                     line_types=line[lane],
+                    width = width,
                 ),
             )
             net.add_lane(
@@ -192,6 +200,7 @@ class MadTrackEnv(AbstractEnv):
                     np.deg2rad(90 - alpha),
                     clockwise=False,
                     line_types=line[lane],
+                    width = width,
                 ),
             )
         
