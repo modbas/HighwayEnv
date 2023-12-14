@@ -49,9 +49,9 @@ class VehicleGraphics(object):
             return
 
         v = vehicle
-        tire_length, tire_width = 1, 0.3
-        headlight_length, headlight_width = 0.72, 0.6
-        roof_length, roof_width = 2.0, 1.5
+        tire_length, tire_width = 0.03, 0.01
+        headlight_length, headlight_width = 0.001, 0.001
+        roof_length, roof_width = 0.05, 0.05
 
         # Vehicle rectangle
         length = v.LENGTH + 2 * tire_length

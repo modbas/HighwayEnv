@@ -29,8 +29,8 @@ class MadTrackEnv(AbstractEnv):
                 "observation": {
                     "type": "OccupancyGrid",
                     "features": ["presence", "on_road"],
-                    "grid_size": [[0, 2.7], [0, 1.8]],
-                    "grid_step": [0.1, 0.1],
+                    "grid_size": [[-1, 1], [-1, 1]],
+                    "grid_step": [0.01, 0.01],
                     "as_image": False,
                     "align_to_vehicle_axes": True,
                 },
@@ -38,6 +38,7 @@ class MadTrackEnv(AbstractEnv):
                     "type": "ContinuousAction",
                     "longitudinal": False,
                     "lateral": True,
+                    "dynamical": False,
                     "target_speeds": [0, 0.5, 1.0], #0, 5, 10],
                 },
                 "simulation_frequency": 15,
@@ -53,6 +54,7 @@ class MadTrackEnv(AbstractEnv):
                 "screen_height": 768,
                 "centering_position": [0, 0],
                 "scaling": 1024 / 2.7,
+                #"offscreen": True,
             }
         )
         return config
@@ -222,7 +224,7 @@ class MadTrackEnv(AbstractEnv):
         # Controlled vehicles
         self.controlled_vehicles = []
 
-        controlled_vehicle = self.action_type.vehicle_class(self.road, (0, 0 ), 0, 0)
+        controlled_vehicle = self.action_type.vehicle_class(self.road, (1.35, 0.4 ), np.deg2rad(0), 0)
         #controlled_vehicle = self.action_type.vehicle_class.make_on_lane(
         #    self.road, ("se", "ex", 0), speed=None, longitudinal=rng.uniform(0, 1)
         #)
