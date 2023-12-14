@@ -92,26 +92,27 @@ class MadTrackEnv(AbstractEnv):
         # Circle lanes: (s)outh/(e)ast/(n)orth/(w)est (e)ntry/e(x)it.
         center = [1.35, 0.9]  # [m]
         radius = 0.5  # [m]
-        alpha = 24  # [deg]
+        alpha = 10  # [deg]
         width = 0.1 # [ m ]
         
-        radii = [radius, radius + 0.1]
+        radii = [radius, radius + width ]
         n, c, s = LineType.NONE, LineType.CONTINUOUS, LineType.STRIPED
         line = [[c, s], [n, c]]
-        for lane in [0]:
+        for lane in [0, 1]:
             net.add_lane(
                 "se",
                 "ex",
                 CircularLane(
                     center,
                     radii[lane],
-                    np.deg2rad(90 - alpha),
-                    np.deg2rad(alpha),
+                    np.deg2rad(0),
+                    np.deg2rad(-360),
                     clockwise=False,
                     line_types=line[lane],
                     width = width,
                 ),
             )
+            '''
             net.add_lane(
                 "ex",
                 "ee",
@@ -203,6 +204,7 @@ class MadTrackEnv(AbstractEnv):
                     width = width,
                 ),
             )
+            '''
         
         road = Road(
             network=net,
