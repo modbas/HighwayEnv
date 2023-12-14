@@ -224,10 +224,10 @@ class MadTrackEnv(AbstractEnv):
         # Controlled vehicles
         self.controlled_vehicles = []
 
-        controlled_vehicle = self.action_type.vehicle_class(self.road, (1.35, 0.4 ), np.deg2rad(0), 0)
-        #controlled_vehicle = self.action_type.vehicle_class.make_on_lane(
-        #    self.road, ("se", "ex", 0), speed=None, longitudinal=rng.uniform(0, 1)
-        #)
+        #controlled_vehicle = self.action_type.vehicle_class(self.road, (1.35, 0.4 ), np.deg2rad(0), 0)
+        controlled_vehicle = self.action_type.vehicle_class.make_on_lane(
+            self.road, ("se", "ex", 0), speed=None, longitudinal=rng.uniform(0, 3.141)
+        )
 
         self.controlled_vehicles.append(controlled_vehicle)
         self.road.vehicles.append(controlled_vehicle)
