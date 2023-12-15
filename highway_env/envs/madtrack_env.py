@@ -29,8 +29,8 @@ class MadTrackEnv(AbstractEnv):
                 "observation": {
                     "type": "OccupancyGrid",
                     "features": ["presence", "on_road"],
-                    "grid_size": [[-0.3, 0.3], [-0.3, 0.3]],
-                    "grid_step": [0.02, 0.02],
+                    "grid_size": [[-0.75, 0.75], [-0.75, 0.75]],
+                    "grid_step": [0.125, 0.125],
                     "as_image": False,
                     "align_to_vehicle_axes": True,
                 },
@@ -95,7 +95,7 @@ class MadTrackEnv(AbstractEnv):
         center = [1.35, 0.9]  # [m]
         radius = 0.5  # [m]
         alpha = 10  # [deg]
-        width = 0.1 # [ m ]
+        width = 0.17 # [ m ]
         
         radii = [radius, radius + width ]
         n, c, s = LineType.NONE, LineType.CONTINUOUS, LineType.STRIPED

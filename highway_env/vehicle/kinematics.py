@@ -20,7 +20,7 @@ class Vehicle(RoadObject):
 
     LENGTH = 0.099 #5.0
     """ Vehicle length [m] """
-    WIDTH = 0.06 #2.0
+    WIDTH = 0.083 #2.0
     """ Vehicle width [m] """
     DEFAULT_INITIAL_SPEEDS = [0.5, 1.0] #[23, 25]
     """ Range for random initial speeds [m/s] """

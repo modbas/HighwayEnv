@@ -113,13 +113,13 @@ class LaneGraphics(object):
     """A visualization of a lane."""
 
     # See https://www.researchgate.net/figure/French-road-traffic-lane-description-and-specification_fig4_261170641
-    STRIPE_SPACING: float = 0.05
+    STRIPE_SPACING: float = 0.18
     """ Offset between stripes [m]"""
 
-    STRIPE_LENGTH: float = 0.02
+    STRIPE_LENGTH: float = 0.125
     """ Length of a stripe [m]"""
 
-    STRIPE_WIDTH: float = 0.01
+    STRIPE_WIDTH: float = 0.0125
     """ Width of a stripe [m]"""
 
     @classmethod
