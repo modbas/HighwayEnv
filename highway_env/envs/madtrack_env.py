@@ -93,7 +93,7 @@ class MadTrackEnv(AbstractEnv):
 
         # Circle lanes: (s)outh/(e)ast/(n)orth/(w)est (e)ntry/e(x)it.
         center = [1.35, 0.9]  # [m]
-        radius = 0.5  # [m]
+        radius = 0.7  # [m]
         alpha = 10  # [deg]
         width = 0.17 # [ m ]
         
@@ -112,6 +112,7 @@ class MadTrackEnv(AbstractEnv):
                     clockwise=False,
                     line_types=line[lane],
                     width = width,
+                    speed_limit = 0.5,
                 ),
             )
             '''

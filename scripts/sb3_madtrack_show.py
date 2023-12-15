@@ -16,6 +16,6 @@ if __name__ == "__main__":
     plt.imshow(obs[1,...].T)
     plt.show()
     env.render()
-    time.sleep(2)
+    time.sleep(4)
     
     
