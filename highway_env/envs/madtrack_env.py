@@ -93,122 +93,66 @@ class MadTrackEnv(AbstractEnv):
 
         # Circle lanes: (s)outh/(e)ast/(n)orth/(w)est (e)ntry/e(x)it.
         center = [1.35, 0.9]  # [m]
-        radius = 0.7  # [m]
+        radius = 0.6  # [m]
         alpha = 10  # [deg]
         width = 0.17 # [ m ]
+        speed_limit = 0.5 # [ m/s ]
         
         radii = [radius, radius + width ]
         n, c, s = LineType.NONE, LineType.CONTINUOUS, LineType.STRIPED
         line = [[c, s], [n, c]]
         for lane in [0, 1]:
             net.add_lane(
+                "nw",
+                "sw",
+                CircularLane(
+                    [ 0.9, 0.9 ],
+                    radii[lane],
+                    np.deg2rad(270),
+                    np.deg2rad(90),
+                    clockwise=False,
+                    line_types=line[lane],
+                    width = width,
+                    speed_limit = speed_limit,
+                ),
+            )
+            net.add_lane(
+                "sw",
                 "se",
-                "ex",
-                CircularLane(
-                    center,
-                    radii[lane],
-                    np.deg2rad(0),
-                    np.deg2rad(-360),
-                    clockwise=False,
+                    StraightLane(
+                    [ 0.9, center[1] + radii[lane] ],
+                    [ 1.8, center[1] + radii[lane] ],
                     line_types=line[lane],
                     width = width,
-                    speed_limit = 0.5,
-                ),
-            )
-            '''
-            net.add_lane(
-                "ex",
-                "ee",
-                CircularLane(
-                    center,
-                    radii[lane],
-                    np.deg2rad(alpha),
-                    np.deg2rad(-alpha),
-                    clockwise=False,
-                    line_types=line[lane],
-                    width = width,
+                    speed_limit = speed_limit,
                 ),
             )
             net.add_lane(
-                "ee",
-                "nx",
-                CircularLane(
-                    center,
-                    radii[lane],
-                    np.deg2rad(-alpha),
-                    np.deg2rad(-90 + alpha),
-                    clockwise=False,
-                    line_types=line[lane],
-                    width = width,
-                ),
-            )
-            net.add_lane(
-                "nx",
+                "se",
                 "ne",
                 CircularLane(
-                    center,
+                    [ 1.8, 0.9 ],
                     radii[lane],
-                    np.deg2rad(-90 + alpha),
-                    np.deg2rad(-90 - alpha),
+                    np.deg2rad(90),
+                    np.deg2rad(-90),
                     clockwise=False,
                     line_types=line[lane],
                     width = width,
+                    speed_limit = speed_limit,
                 ),
             )
             net.add_lane(
                 "ne",
-                "wx",
-                CircularLane(
-                    center,
-                    radii[lane],
-                    np.deg2rad(-90 - alpha),
-                    np.deg2rad(-180 + alpha),
-                    clockwise=False,
+                "nw",
+                    StraightLane(
+                    [ 1.8, center[1] - radii[lane] ],
+                    [ 0.9, center[1] - radii[lane] ],
                     line_types=line[lane],
                     width = width,
+                    speed_limit = speed_limit,
                 ),
             )
-            net.add_lane(
-                "wx",
-                "we",
-                CircularLane(
-                    center,
-                    radii[lane],
-                    np.deg2rad(-180 + alpha),
-                    np.deg2rad(-180 - alpha),
-                    clockwise=False,
-                    line_types=line[lane],
-                    width = width,
-                ),
-            )
-            net.add_lane(
-                "we",
-                "sx",
-                CircularLane(
-                    center,
-                    radii[lane],
-                    np.deg2rad(180 - alpha),
-                    np.deg2rad(90 + alpha),
-                    clockwise=False,
-                    line_types=line[lane],
-                    width = width,
-                ),
-            )
-            net.add_lane(
-                "sx",
-                "se",
-                CircularLane(
-                    center,
-                    radii[lane],
-                    np.deg2rad(90 + alpha),
-                    np.deg2rad(90 - alpha),
-                    clockwise=False,
-                    line_types=line[lane],
-                    width = width,
-                ),
-            )
-            '''
-        
+            
         road = Road(
             network=net,
             np_random=self.np_random,
@@ -225,9 +169,8 @@ class MadTrackEnv(AbstractEnv):
         # Controlled vehicles
         self.controlled_vehicles = []
 
-        #controlled_vehicle = self.action_type.vehicle_class(self.road, (1.35, 0.4 ), np.deg2rad(0), 0)
         controlled_vehicle = self.action_type.vehicle_class.make_on_lane(
-            self.road, ("se", "ex", 0), speed=None, longitudinal=rng.uniform(0, 3.141)
+            self.road, self.road.network.random_lane_index(rng), speed=None, longitudinal=rng.uniform(0, 0.9 )
         )
 
         self.controlled_vehicles.append(controlled_vehicle)
