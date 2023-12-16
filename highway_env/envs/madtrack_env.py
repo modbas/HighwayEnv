@@ -40,6 +40,7 @@ class MadTrackEnv(AbstractEnv):
                     "lateral": True,
                     "dynamical": False,
                     "target_speeds": [0, 0.5, 1.0], #0, 5, 10],
+                    "steering_range": [-np.deg2rad(22), np.deg2rad(22) ]
                 },
                 "simulation_frequency": 15,
                 "policy_frequency": 5,
@@ -172,6 +173,7 @@ class MadTrackEnv(AbstractEnv):
         controlled_vehicle = self.action_type.vehicle_class.make_on_lane(
             self.road, self.road.network.random_lane_index(rng), speed=None, longitudinal=rng.uniform(0, 0.9 )
         )
+        controlled_vehicle.heading += np.pi * rng.integers(0, 2)
 
         self.controlled_vehicles.append(controlled_vehicle)
         self.road.vehicles.append(controlled_vehicle)
