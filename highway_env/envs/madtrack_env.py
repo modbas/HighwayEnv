@@ -80,7 +80,7 @@ class MadTrackEnv(AbstractEnv):
         }
 
     def _is_terminated(self) -> bool:
-        return self.vehicle.crashed
+        return self.vehicle.crashed or self.vehicle.on_road==False
 
     def _is_truncated(self) -> bool:
         return self.time >= self.config["duration"]
@@ -173,7 +173,7 @@ class MadTrackEnv(AbstractEnv):
         controlled_vehicle = self.action_type.vehicle_class.make_on_lane(
             self.road, self.road.network.random_lane_index(rng), speed=None, longitudinal=rng.uniform(0, 0.9 )
         )
-        controlled_vehicle.heading += np.pi * rng.integers(0, 2)
+        controlled_vehicle.heading += np.pi # * rng.integers(0, 2)
 
         self.controlled_vehicles.append(controlled_vehicle)
         self.road.vehicles.append(controlled_vehicle)

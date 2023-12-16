@@ -13,9 +13,9 @@ TRAIN = False
 if __name__ == "__main__":
     env = gym.make("madtrack-v0", render_mode="rgb_array")
     obs, info = env.reset()
-    # plt.imshow(obs[1,...].T)
-    # plt.show()
+    plt.imshow(obs[1,...].T)
+    plt.show()
     env.render()
-    time.sleep(2)
+    time.sleep(3)
     
     
