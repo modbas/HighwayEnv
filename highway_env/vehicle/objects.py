@@ -20,7 +20,7 @@ class RoadObject(ABC):
     For now we assume all objects are rectangular.
     """
 
-    LENGTH: float = 0.083  # Object length [m]
+    LENGTH: float = 0.099  # Object length [m]
     WIDTH: float = 0.083  # Object width [m]
 
     def __init__(
@@ -199,7 +199,7 @@ class RoadObject(ABC):
     @property
     def on_road(self) -> bool:
         """Is the object on its current lane, or off-road?"""
-        return self.lane.on_lane(self.position)
+        return self.lane.on_lane(self.position, margin=-self.WIDTH / 2)
 
     def front_distance_to(self, other: "RoadObject") -> float:
         return self.direction.dot(other.position - self.position)

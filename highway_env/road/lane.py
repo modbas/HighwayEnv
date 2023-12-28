@@ -14,7 +14,7 @@ class AbstractLane(object):
 
     metaclass__ = ABCMeta
     DEFAULT_WIDTH: float = 4
-    VEHICLE_LENGTH: float = 5
+    VEHICLE_LENGTH: float = 0.167
     length: float = 0
     line_types: List["LineType"]
 
