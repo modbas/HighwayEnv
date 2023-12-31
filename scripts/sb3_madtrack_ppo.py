@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 
 import highway_env  # noqa: F401
 
-TRAIN = True
+TRAIN = False
 
 if __name__ == "__main__":
     n_cpu = 24
@@ -33,9 +33,8 @@ if __name__ == "__main__":
         del model
 
     # Run the algorithm
-    model = PPO.load("madtrack_ppo/model", env=env)
-
     env = gym.make("madtrack-v0", render_mode="rgb_array")
+    model = PPO.load("madtrack_ppo/model", env=env)
     env = RecordVideo(
         env, video_folder="madtrack_ppo/videos", episode_trigger=lambda e: True
     )
