@@ -28,7 +28,7 @@ class MadTrackEnv(AbstractEnv):
             {
                 "observation": {
                     "type": "OccupancyGrid",
-                    "features": ["presence", "on_road"],
+                    "features": ["on_road"], # ["presence", "on_road"],
                     "grid_size": [[-0.75, 0.75], [-0.75, 0.75]],
                     "grid_step": [0.125, 0.125],
                     "as_image": False,

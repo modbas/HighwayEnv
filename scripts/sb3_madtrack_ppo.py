@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 
 import highway_env  # noqa: F401
 
-TRAIN = False
+TRAIN = True
 
 if __name__ == "__main__":
     n_cpu = 24
