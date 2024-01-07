@@ -26,7 +26,8 @@ if __name__ == "__main__":
             # Convert to tensor
             tensor_obs = th.tensor(np.reshape(obs, (1, 144)), dtype=th.float32)
             # Predict
-            action = model(tensor_obs)
+            tensor_action, _states = model(tensor_obs)
+            action = tensor_action.numpy()
             # Get reward
             obs, reward, done, truncated, info = env.step(action)
             # Render
