@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 
 import highway_env  # noqa: F401
 
-TRAIN = True
+TRAIN = False
 
 if __name__ == "__main__":
     n_cpu = 24
@@ -26,6 +26,9 @@ if __name__ == "__main__":
         verbose=2,
         tensorboard_log="madtrack_ppo/",
     )
+
+    print(model.policy)
+    
     # Train the model
     if TRAIN:
         model.learn(total_timesteps=int(1e5))
@@ -46,6 +49,7 @@ if __name__ == "__main__":
         while not (done or truncated):
             # Predict
             action, _states = model.predict(obs, deterministic=True)
+            print(action)
             # Get reward
             obs, reward, done, truncated, info = env.step(action)
             # Render
